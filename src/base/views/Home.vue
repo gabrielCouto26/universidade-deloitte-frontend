@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import HelloWorld from '@/base/components/HelloWorld.vue'
 </script>
