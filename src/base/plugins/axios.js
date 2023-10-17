@@ -11,7 +11,7 @@ const http = axios.create({
 http.interceptors.request.use(request => {
   const token = localStorage.getItem('authToken')
   if (token)
-    request.headers.Authorization = token
+    request.headers.Authorization = `Token ${token}`
   return request
 })
 
