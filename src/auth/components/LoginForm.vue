@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router';
 
 
 const props = defineProps({
-    action: Function
+    action: Function,
+    callback: Function
 })
 
 const router = useRouter()
@@ -33,8 +34,10 @@ async function handleLogin() {
         return
     }
 
-    if (token)
+    if (token){
+        await props.callback()
         router.push({ name: 'Home' })
+    }
 }
 
 </script>

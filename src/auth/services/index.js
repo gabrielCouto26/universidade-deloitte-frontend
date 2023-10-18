@@ -9,6 +9,16 @@ async function getToken(username, password){
     }
 }
 
+async function getUserInfo(){
+    try {
+        const res = await http.get('/api/user-info')
+        return [res.data, null]
+    } catch (error) {
+        return [null, error]
+    }
+}
+
 export {
-    getToken
+    getToken,
+    getUserInfo
 }

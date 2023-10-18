@@ -2,7 +2,7 @@
 import LoginForm from '@/auth/components/LoginForm.vue'
 import { useAuth } from '@/auth/composable'
 
-const { login } = useAuth()
+const { login, userInfo } = useAuth()
 </script>
 
 <template>
@@ -10,6 +10,7 @@ const { login } = useAuth()
         <h1 class="mb-12">Entre com sua conta</h1>
         <LoginForm
             :action=login
+            :callback=userInfo
         />
     </v-container>
 </template>

@@ -1,4 +1,4 @@
-import { getToken } from '@/auth/services'
+import { getToken, getUserInfo } from '@/auth/services'
 
 export const useAuth = () => {
     async function login(username, password) {
@@ -13,7 +13,17 @@ export const useAuth = () => {
         }
     }
 
+    async function userInfo() {
+        const [res, error] = await getUserInfo()
+        if (error)
+            return [null, error]
+
+        if (res)
+            localStorage.setItem('user', JSON.stringify(res))
+    }
+
     return {
-        login
+        login,
+        userInfo
     }
 }
