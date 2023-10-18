@@ -15,6 +15,7 @@ const loading = ref(false)
 const headers = ref([])
 const items = ref([])
 const canAdd = ref(false)
+const addRoute = ref('')
 
 async function handleList() {
     message.value = ''
@@ -42,6 +43,11 @@ async function handleUserInfo() {
 
     setTable(user.user_type)
     setCanAdd(user.user_type, user.permissions)
+    setAddRoute(user.user_type)
+}
+
+function handleAdd() {
+    router.push({ name: addRoute.value })
 }
 
 function setTable(userType) {
@@ -63,11 +69,19 @@ function setTable(userType) {
 
 function setCanAdd(userType, permissions) {
     if (userType === 'Coordinator') {
-        const can = permissions.filter(p => (p.resource === 'Discipline' && p.can_write))
+        const can = permissions.filter(p => (p.resource === 'Discipline' && p.can_write)).length
         canAdd.value = can ? true : false
     } else if (userType === 'Student' || userType === 'Teacher'){
-        const can = permissions.filter(p => (p.resource === 'Grade' && p.can_write))
+        const can = permissions.filter(p => (p.resource === 'Grade' && p.can_write)).length
         canAdd.value = can ? true : false
+    }
+}
+
+function setAddRoute(userType) {
+    if (userType === 'Coordinator') {
+        addRoute.value = 'NewDiscipline'
+    } else if (userType === 'Student' || userType === 'Teacher'){
+        addRoute.value = 'NewGrade'
     }
 }
 
@@ -85,6 +99,7 @@ onMounted(async () => {
         :headers="headers"
         :items="items"
         :canAdd="canAdd"
+        :add="handleAdd"
     />
 
 </template>

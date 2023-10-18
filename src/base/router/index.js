@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { AuthRoutes } from '@/auth/routes'
 import { HomeRoutes } from '@/home/routes'
+import { GradeRoutes } from '@/grades/routes'
 
 const routes = [
   {
@@ -9,7 +10,8 @@ const routes = [
     component: () => import('@/base/layouts/default/Default.vue'),
     children: [
       ...AuthRoutes,
-      ...HomeRoutes
+      ...HomeRoutes,
+      ...GradeRoutes
     ],
   },
 ]
