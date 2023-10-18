@@ -10,8 +10,16 @@ const http = axios.create({
 
 http.interceptors.request.use(request => {
   const token = localStorage.getItem('authToken')
-  if (token)
+
+  if (request.url === '/token')
+    return request
+
+  if (token) {
     request.headers.Authorization = `Token ${token}`
+  } else {
+    localStorage.clear()
+    window.location.href = 'http://localhost:3000/login'
+  }
   return request
 })
 
