@@ -18,7 +18,12 @@ async function getUserInfo(){
     }
 }
 
+function logout() {
+    localStorage.clear()
+}
+
 export {
     getToken,
-    getUserInfo
+    getUserInfo,
+    logout
 }
