@@ -8,7 +8,6 @@ import {
 export const useDisciplines = () => {
     const disciplines = ref([])
     const teacherDisciplines = ref([])
-    const disciplineStudents = ref([])
 
     async function disciplinesList() {
         const [res, error] = await getDisciplines()
@@ -34,7 +33,6 @@ export const useDisciplines = () => {
 
     async function disciplineStudentsList(id) {
         const [res, error] = await getDisciplineStudents(id)
-        disciplineStudents.value = res
         if (error)
             return [null, error]
 
@@ -56,7 +54,6 @@ export const useDisciplines = () => {
     return {
         disciplines,
         teacherDisciplines,
-        disciplineStudents,
         disciplinesList,
         teacherDisciplinesList,
         disciplineStudentsList,
