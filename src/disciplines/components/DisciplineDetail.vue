@@ -18,7 +18,7 @@ function handleCancel() {
     <v-card class="rounded-lg pa-4 show-overflow">
         <template v-if="errorMessage">
             <v-alert type="error" class="justify-center mb-4">
-                {{ errorMessage }}
+                {{ errorMessage || 'Erro inesperado' }}
             </v-alert>
         </template>
         <template v-else>

@@ -119,8 +119,8 @@ function handleCancel() {
         </v-form>
     </v-card>
 
-    <v-alert v-if="message" type="error" class="justify-center mb-4">
-        {{ message }}
+    <v-alert v-if="message" type="error" class="justify-center my-4">
+        {{ message || 'Erro inesperado' }}
     </v-alert>
 
     <div class="mt-4">
