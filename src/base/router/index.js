@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { AuthRoutes } from '@/auth/routes'
 import { HomeRoutes } from '@/home/routes'
 import { GradeRoutes } from '@/grades/routes'
+import { DisciplineRoutes } from '@/disciplines/routes'
 
 const routes = [
   {
@@ -11,7 +12,8 @@ const routes = [
     children: [
       ...AuthRoutes,
       ...HomeRoutes,
-      ...GradeRoutes
+      ...GradeRoutes,
+      ...DisciplineRoutes
     ],
   },
 ]
