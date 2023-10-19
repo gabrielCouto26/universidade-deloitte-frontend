@@ -1,36 +1,55 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 
 const props = defineProps({
     register: Function,
-    students: Array,
+    getStudents: Function,
     disciplines: Array
 })
 
 const router = useRouter()
 const formValid = ref(false)
-const form = ref({
+const form = reactive({
     value: 0,
-    student: [],
-    discipline: []
+    student: null,
+    discipline: null
 })
 
 const message = ref('')
 const loading = ref(false)
 
-const studentsList = computed(() => {
-    return props.students.map(s => ({
-        title: s.user?.name,
-        value: s.id
+const students = reactive([])
+const disciplineList = computed(() => {
+    return props.disciplines.map(d => ({
+        title: d.name,
+        value: d.id
     }))
 })
 
-const disciplineList = computed(() => {
-    return props.disciplines.map(s => ({
-        title: s.name,
-        value: s.id
-    }))
+const disabledStudent = computed(() => {
+    return form.discipline ? false : true
+})
+
+const disabledGrade = computed(() => {
+    return form.student ? false : true
+})
+
+watch(form, async () => {
+    if(form.discipline){
+        const [studentsList, error] = await props.getStudents(form.discipline)
+        if (error) {
+            message.value = error.message
+            return
+        }
+
+        students.value = studentsList.map(s => ({
+            ...s,
+            title: s.user?.name,
+            value: s.id
+        }))
+    }
 })
 
 async function handleRegister() {
@@ -40,7 +59,7 @@ async function handleRegister() {
     message.value = ''
     loading.value = true
 
-    const [res, error] = await props.register(form.value)
+    const [res, error] = await props.register(form)
 
     loading.value = false
 
@@ -61,24 +80,26 @@ function handleCancel() {
 </script>
 
 <template>
-    <v-form
-        v-model="formValid"
-    >
-        <v-text-field 
-            v-model="form.value"
-            label="Valor"
+    <v-form v-model="formValid" >
+        <v-select
+            v-model="form.discipline"
+            label="Disciplina"
+            :items="disciplineList"
         />
 
         <v-select
             v-model="form.student"
             label="Aluno"
-            :items="studentsList"
+            :items="students?.value"
+            :disabled="disabledStudent"
         />
 
-        <v-select
-            v-model="form.discipline"
-            label="Disciplina"
-            :items="disciplineList"
+        <v-text-field 
+            v-model.number="form.value"
+            label="Valor"
+            type="number"
+            min="0"
+            :disabled="disabledGrade"
         />
     </v-form>
 

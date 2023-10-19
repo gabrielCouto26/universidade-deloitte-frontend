@@ -1,18 +1,18 @@
 <script setup>
 import { onMounted } from 'vue';
 import GradeForm from '@/grades/components/GradeForm.vue'
-import { useStudents } from '@/students/composable'
 import { useDisciplines } from '@/disciplines/composable'
 import { useGrade } from '@/grades/composable'
 
-const { students, studentsList } = useStudents()
-const { disciplines, disciplinesList } = useDisciplines()
 const { addGrade } = useGrade()
+const {
+    teacherDisciplines,
+    teacherDisciplinesList,
+    disciplineStudentsList } = useDisciplines()
 
 
 onMounted(async () => {
-    await studentsList()
-    await disciplinesList()
+    await teacherDisciplinesList()
 })
 
 </script>
@@ -22,8 +22,8 @@ onMounted(async () => {
         <h1 class="mb-12">Cadastre uma nova Nota</h1>
         <GradeForm
             :register="addGrade"
-            :students="students"
-            :disciplines="disciplines"
+            :getStudents="disciplineStudentsList"
+            :disciplines="teacherDisciplines"
         />
     </v-container>
 </template>
