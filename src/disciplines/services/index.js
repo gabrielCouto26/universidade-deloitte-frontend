@@ -20,7 +20,7 @@ async function getTeacherDisciplines(){
 
 async function getDisciplineStudents(id){
     try {
-        const res = await http.get(`/api/discipline/${id}/students`)
+        const res = await http.get(`/api/disciplines/${id}/students`)
         return [res.data?.results, null]
     } catch (error) {
         return [null, error]
