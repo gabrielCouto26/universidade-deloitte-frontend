@@ -40,7 +40,7 @@ watch(form, async () => {
     if(form.discipline){
         const [studentsList, error] = await props.getStudents(form.discipline)
         if (error) {
-            message.value = error.message
+            message.value = 'Erro ao buscar Alunos'
             return
         }
 
