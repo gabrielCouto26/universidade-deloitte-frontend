@@ -7,7 +7,7 @@ const { login, userInfo } = useAuth()
 
 <template>
     <v-container>
-        <h1 class="mb-12">Entre com sua conta</h1>
+        <h1 class="mb-12" :style="{color: '#006600'}">Entre com sua conta</h1>
         <LoginForm
             :action=login
             :callback=userInfo

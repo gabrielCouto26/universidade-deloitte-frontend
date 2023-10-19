@@ -18,7 +18,7 @@ onMounted(async () => {
 
 <template>
     <v-container>
-        <h1 class="mb-12">Cadastre uma nova Disciplina</h1>
+        <h1 class="mb-12" :style="{color: '#006600'}">Cadastre uma nova Disciplina</h1>
         <DisciplineForm
             :register="addDisciplines"
             :teachers="teachers"

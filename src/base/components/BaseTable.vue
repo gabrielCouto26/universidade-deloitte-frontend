@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue';
+
 
 const props = defineProps({
   headers: Array,
@@ -8,46 +10,70 @@ const props = defineProps({
   getDetails: Function
 })
 
+const currentItemWithMouse = ref('')
+
+function highlightItem(item) {
+  currentItemWithMouse.value = item;
+}
+function unhighlightItem() {
+  currentItemWithMouse.value = null;
+}
+
 </script>
 
 <template>
-  <v-container>
-    <div 
-      v-if="canAdd"
-      class="d-flex flex-row justify-end">
-      <v-btn 
-        color="primary"
-        @click="add">
-        + Adicionar
-      </v-btn>
-    </div>
+  <div 
+    v-if="canAdd"
+    class="d-flex flex-row justify-end"
+  >
+    <v-btn 
+      color="#006600"
+      @click="add"
+      class="mt-6">
+      Adicionar +
+    </v-btn>
+  </div>
 
-    <v-table class="base-data-table">
-      <thead>
-        <tr>
-          <th 
-            v-for="(item, i) in props.headers"
+  <v-card class="mt-3 rounded-lg">
+    <v-card-item>
+      <v-table>
+        <thead>
+          <tr>
+            <th 
+              v-for="(item, i) in props.headers"
+              :key="i"
+            >
+              <v-card-title>{{  item.text }}</v-card-title>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="(item, i) in props.items"
             :key="i"
+            @mouseover="highlightItem(item)"
+            @mouseleave="unhighlightItem(item)"
+            :class="{ 'mouseover': item === currentItemWithMouse }"
           >
-            {{  item.text }}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr
-          v-for="(item, i) in props.items"
-          :key="i"
-        >
-          <td
-            v-for="header in props.headers"
-            :key="header.value"
-            @click="getDetails(item.id)"
-          >
-            {{ item[header.value] }}
-          </td>
-        </tr>
-      </tbody>
-    </v-table>
-  </v-container>
+            <td
+              v-for="header in props.headers"
+              :key="header.value"
+              @click="getDetails(item.id)"
+            >
+              {{ item[header.value] }}
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
+    </v-card-item>
+  </v-card>
 </template>
+
+<style>
+.mouseover {
+  cursor: pointer;
+  background-color: #006600;
+  color: white;
+}
+</style>

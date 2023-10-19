@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
     <v-container>
-        <h1 class="mb-12">Cadastre uma nova Nota</h1>
+        <h1 class="mb-12" :style="{color: '#006600'}">Cadastre uma nova Nota</h1>
         <GradeForm
             :register="addGrade"
             :getStudents="disciplineStudentsList"

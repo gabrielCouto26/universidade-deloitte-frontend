@@ -75,53 +75,69 @@ function handleCancel() {
 </script>
 
 <template>
-    <v-form v-model="formValid">
-        <v-text-field
-            v-model="form.name"
-            label="Nome"
-        />
+    <v-card class="mt-3 rounded-lg">
+        <v-form v-model="formValid">
+            <v-card-item>
+                <v-text-field
+                    v-model="form.name"
+                    label="Nome"
+                    variant="underlined"
+                />
+            </v-card-item>
 
-        <v-text-field
-            v-model.number="form.workload"
-            label="Carga horária"
-            type="number"
-            min="0"
-            :disabled="disabledWorkload"
-        />
+            <v-card-item>
+                <v-text-field
+                    v-model.number="form.workload"
+                    label="Carga horária"
+                    type="number"
+                    min="0"
+                    :disabled="disabledWorkload"
+                    variant="underlined"
+                />
+            </v-card-item>
 
-        <v-select
-            v-model="form.teacher"
-            label="Professor"
-            :items="teacherList"
-            :disabled="disabledTeacher"
-        />
+            <v-card-item>
+                <v-select
+                    v-model="form.teacher"
+                    label="Professor"
+                    :items="teacherList"
+                    :disabled="disabledTeacher"
+                    variant="underlined"
+                />
+            </v-card-item>
 
-        <v-select
-            v-model="form.students"
-            label="Alunos"
-            :items="studentList"
-            :disabled="disabledStudent"
-            multiple
-        />
-    </v-form>
+            <v-card-item>
+                <v-select
+                    v-model="form.students"
+                    label="Alunos"
+                    :items="studentList"
+                    :disabled="disabledStudent"
+                    multiple
+                    variant="underlined"
+                />
+            </v-card-item>
+        </v-form>
+    </v-card>
 
     <v-alert v-if="message" type="error" class="justify-center mb-4">
         {{ message }}
     </v-alert>
 
-    <v-btn
-        color="primary"
-        :loading="loading"
-        type="submit"
-        @click.prevent="handleRegister"
-    >
-        Cadastrar
-    </v-btn>
+    <div class="mt-4">
+        <v-btn
+            color="#006600"
+            :loading="loading"
+            type="submit"
+            @click.prevent="handleRegister"
+        >
+            Cadastrar
+        </v-btn>
 
-    <v-btn
-        @click="handleCancel"
-        class="ml-4"
-    >
-        Cancelar
-    </v-btn>
+        <v-btn
+            @click="handleCancel"
+            class="ml-4"
+        >
+            Cancelar
+        </v-btn>
+    </div>
 </template>

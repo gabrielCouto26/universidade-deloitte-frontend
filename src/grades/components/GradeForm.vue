@@ -80,46 +80,59 @@ function handleCancel() {
 </script>
 
 <template>
-    <v-form v-model="formValid" >
-        <v-select
-            v-model="form.discipline"
-            label="Disciplina"
-            :items="disciplineList"
-        />
+    <v-card class="mt-3 rounded-lg">
+        <v-form v-model="formValid" >
+            <v-card-item>
+                <v-select
+                    v-model="form.discipline"
+                    label="Disciplina"
+                    :items="disciplineList"
+                    variant="underlined"
+                />
+            </v-card-item>
 
-        <v-select
-            v-model="form.student"
-            label="Aluno"
-            :items="students?.value"
-            :disabled="disabledStudent"
-        />
+            <v-card-item>
+                <v-select
+                    v-model="form.student"
+                    label="Aluno"
+                    :items="students?.value"
+                    :disabled="disabledStudent"
+                    variant="underlined"
+                />
+            </v-card-item>
 
-        <v-text-field 
-            v-model.number="form.value"
-            label="Valor"
-            type="number"
-            min="0"
-            :disabled="disabledGrade"
-        />
-    </v-form>
+            <v-card-item>
+                <v-text-field 
+                    v-model.number="form.value"
+                    label="Valor"
+                    type="number"
+                    min="0"
+                    :disabled="disabledGrade"
+                    variant="underlined"
+                />
+            </v-card-item>
+        </v-form>
+    </v-card>
 
     <v-alert v-if="message" type="error" class="justify-center mb-4">
         {{ message }}
     </v-alert>
 
-    <v-btn
-        color="primary"
-        :loading="loading"
-        type="submit"
-        @click.prevent="handleRegister"
-    >
-        Cadastrar
-    </v-btn>
+    <div class="mt-4">
+        <v-btn
+            color="#006600"
+            :loading="loading"
+            type="submit"
+            @click.prevent="handleRegister"
+        >
+            Cadastrar
+        </v-btn>
 
-    <v-btn
-        @click="handleCancel"
-        class="ml-4"
-    >
-        Cancelar
-    </v-btn>
+        <v-btn
+            @click="handleCancel"
+            class="ml-4"
+        >
+            Cancelar
+        </v-btn>
+    </div>
 </template>

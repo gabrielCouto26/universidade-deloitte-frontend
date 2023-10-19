@@ -43,22 +43,29 @@ async function handleLogin() {
 </script>
 
 <template>
-    <v-form
-        v-model="formValid"
-    >
-        <v-text-field
-            v-model="form.email"
-            label="Email"
-            type="email"
-            class="mb-2"
-        />
+    <v-card class="mt-3 rounded-lg">
+        <v-form
+            v-model="formValid"
+        >
+            <v-card-item>
+                <v-text-field
+                    v-model="form.email"
+                    label="Email"
+                    type="email"
+                    variant="underlined"
+                />
+            </v-card-item>
 
-        <v-text-field
-            v-model="form.password"
-            label="Senha"
-            type="password"
-        />
-    </v-form>
+            <v-card-item>
+                <v-text-field
+                    v-model="form.password"
+                    label="Senha"
+                    type="password"
+                    variant="underlined"
+                />
+            </v-card-item>
+        </v-form>
+    </v-card>
 
     <v-alert v-if="message" type="error" class="justify-center mb-4">
         {{ message }}
@@ -66,10 +73,11 @@ async function handleLogin() {
 
     <v-btn
         block
-        color="primary"
+        color="#006600"
         :loading="loading"
         type="submit"
         @click="handleLogin"
+        class="mt-4 py-6"
     >
         Entrar
     </v-btn>

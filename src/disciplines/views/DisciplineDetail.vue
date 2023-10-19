@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
     <v-container>
-        <h1 class="mb-12">Detalhes da Disciplina</h1>
+        <h1 class="mb-12" :style="{color: '#006600'}">Detalhes da Disciplina</h1>
         <DisciplineDetail
             :details="disciplineDetails"
             :errorMessage="errorMessage"

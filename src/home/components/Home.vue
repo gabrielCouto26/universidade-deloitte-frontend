@@ -16,6 +16,10 @@ const headers = ref([])
 const items = ref([])
 const canAdd = ref(false)
 const addRoute = ref('')
+const user = ref({})
+const isCoordinator = ref(false)
+const isStudent = ref(false)
+const isTeacher = ref(false)
 
 async function handleList() {
     message.value = ''
@@ -35,34 +39,43 @@ async function handleList() {
 }
 
 async function handleUserInfo() {
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (!user) {
+    const authUser = JSON.parse(localStorage.getItem('user'))
+    if (!authUser) {
         message.value = 'Falha ao buscar informações de usuário'
         return
     }
 
-    setTable(user.user_type)
-    setCanAdd(user.user_type, user.permissions)
-    setAddRoute(user.user_type)
+    user.value = authUser
+    if (authUser.user_type === 'Coordinator')
+        isCoordinator.value = true
+    else if (authUser.user_type === 'Student')
+        isStudent.value = true
+    else if (authUser.user_type === 'Teacher')
+        isTeacher.value = true
+
+    setTable()
+    setCanAdd()
+    setAddRoute()
 }
 
 async function handleGetDetails(id) {
-    router.push({ name: 'DisciplineDetail', params: { id } })
+    if (isCoordinator.value)
+        router.push({ name: 'DisciplineDetail', params: { id } })
 }
 
 function handleAdd() {
     router.push({ name: addRoute.value })
 }
 
-function setTable(userType) {
-    if (userType === 'Coordinator') {
+function setTable() {
+    if (isCoordinator.value) {
         title.value = 'Disciplinas'
         headers.value = [
             { text: 'Disciplina', value: 'name' }, 
             { text: 'Professor', value: 'teacher' },
             { text: 'Alunos', value: 'students'}
         ]
-    } else if (userType === 'Student' || userType === 'Teacher'){
+    } else if (isStudent.value || isTeacher.value){
         title.value = 'Notas'
         headers.value = [
             { text: 'Disciplina', value: 'discipline' }, 
@@ -71,20 +84,20 @@ function setTable(userType) {
     }
 }
 
-function setCanAdd(userType, permissions) {
-    if (userType === 'Coordinator') {
-        const can = permissions.filter(p => (p.resource === 'Discipline' && p.can_write)).length
+function setCanAdd() {
+    if (isCoordinator.value) {
+        const can = user.value?.permissions.filter(p => (p.resource === 'Discipline' && p.can_write)).length
         canAdd.value = can ? true : false
-    } else if (userType === 'Student' || userType === 'Teacher'){
-        const can = permissions.filter(p => (p.resource === 'Grade' && p.can_write)).length
+    } else if (isStudent.value || isTeacher.value){
+        const can = user.value?.permissions.filter(p => (p.resource === 'Grade' && p.can_write)).length
         canAdd.value = can ? true : false
     }
 }
 
-function setAddRoute(userType) {
-    if (userType === 'Coordinator') {
+function setAddRoute() {
+    if (isCoordinator.value) {
         addRoute.value = 'NewDiscipline'
-    } else if (userType === 'Student' || userType === 'Teacher'){
+    } else if (isStudent.value || isTeacher.value){
         addRoute.value = 'NewGrade'
     }
 }
@@ -97,14 +110,15 @@ onMounted(async () => {
 </script>
 
 <template>
-    <h1> {{ title }} </h1>
+    <div class="mt-10">
+        <h1 :style="{color: '#006600'}"> {{ title }} </h1>
 
-    <BaseTable 
-        :headers="headers"
-        :items="items"
-        :canAdd="canAdd"
-        :add="handleAdd"
-        :getDetails="handleGetDetails"
-    />
-
+        <BaseTable 
+            :headers="headers"
+            :items="items"
+            :canAdd="canAdd"
+            :add="handleAdd"
+            :getDetails="handleGetDetails"
+        />
+    </div>
 </template>
