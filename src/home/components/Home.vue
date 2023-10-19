@@ -75,10 +75,17 @@ function setTable() {
             { text: 'Professor', value: 'teacher' },
             { text: 'Alunos', value: 'students'}
         ]
-    } else if (isStudent.value || isTeacher.value){
+    } else if (isStudent.value) {
         title.value = 'Notas'
         headers.value = [
             { text: 'Disciplina', value: 'discipline' }, 
+            { text: 'Nota', value: 'value' }
+        ]
+    } else if (isTeacher.value) {
+        title.value = 'Notas'
+        headers.value = [
+            { text: 'Disciplina', value: 'discipline' }, 
+            { text: 'Aluno', value: 'student' }, 
             { text: 'Nota', value: 'value' }
         ]
     }
