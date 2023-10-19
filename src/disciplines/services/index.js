@@ -1,5 +1,14 @@
 import { http } from '@/base/plugins/axios'
 
+async function getDiscipline(id){
+    try {
+        const res = await http.get(`/api/disciplines/${id}`)
+        return [res.data, null]
+    } catch (error) {
+        return [null, error]
+    }
+}
+
 async function getDisciplines(){
     try {
         const res = await http.get('/api/disciplines/')
@@ -37,6 +46,7 @@ async function createDiscipline(data) {
 }
 
 export {
+    getDiscipline,
     getDisciplines,
     getTeacherDisciplines,
     getDisciplineStudents,

@@ -46,6 +46,10 @@ async function handleUserInfo() {
     setAddRoute(user.user_type)
 }
 
+async function handleGetDetails(id) {
+    router.push({ name: 'DisciplineDetail', params: { id } })
+}
+
 function handleAdd() {
     router.push({ name: addRoute.value })
 }
@@ -100,6 +104,7 @@ onMounted(async () => {
         :items="items"
         :canAdd="canAdd"
         :add="handleAdd"
+        :getDetails="handleGetDetails"
     />
 
 </template>

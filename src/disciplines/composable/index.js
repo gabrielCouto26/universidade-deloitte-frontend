@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import {
+    getDiscipline,
     getDisciplines,
     createDiscipline,
     getTeacherDisciplines,
@@ -8,6 +9,17 @@ import {
 export const useDisciplines = () => {
     const disciplines = ref([])
     const teacherDisciplines = ref([])
+
+    async function discipline(id) {
+        const [res, error] = await getDiscipline(id)
+        if (error)
+            return [null, error]
+
+        if (res) {
+            return [res, null]
+        }
+    }
+
 
     async function disciplinesList() {
         const [res, error] = await getDisciplines()
@@ -54,6 +66,7 @@ export const useDisciplines = () => {
     return {
         disciplines,
         teacherDisciplines,
+        discipline,
         disciplinesList,
         teacherDisciplinesList,
         disciplineStudentsList,

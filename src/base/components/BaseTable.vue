@@ -4,9 +4,9 @@ const props = defineProps({
   headers: Array,
   items: Array,
   canAdd: Boolean,
-  add: Function
+  add: Function,
+  getDetails: Function
 })
-
 
 </script>
 
@@ -42,6 +42,7 @@ const props = defineProps({
           <td
             v-for="header in props.headers"
             :key="header.value"
+            @click="getDetails(item.id)"
           >
             {{ item[header.value] }}
           </td>
