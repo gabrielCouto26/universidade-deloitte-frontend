@@ -111,7 +111,7 @@ onMounted(async () => {
 
 <template>
     <div class="mt-10">
-        <h1 :style="{color: '#006600'}"> {{ title }} </h1>
+        <h1 class="color-green"> {{ title }} </h1>
 
         <BaseTable 
             :headers="headers"
@@ -122,3 +122,9 @@ onMounted(async () => {
         />
     </div>
 </template>
+
+<style>
+.color-green {
+  color: #006600 !important;
+}
+</style>

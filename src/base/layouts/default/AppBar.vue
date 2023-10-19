@@ -19,8 +19,8 @@ watch(router.currentRoute, () => {
 </script>
 
 <template>
-  <v-app-bar flat>
-    <v-app-bar-title :style="{color: '#006600', fontWeight: 'bold'}">
+  <v-app-bar flat class="background-green">
+    <v-app-bar-title class="font-weight-bold">
       Universidade Deloitte
     </v-app-bar-title>
 
@@ -29,3 +29,10 @@ watch(router.currentRoute, () => {
     </v-btn>
   </v-app-bar>
 </template>
+
+<style>
+.background-green {
+  background-color: #006600 !important;
+  color: white !important;
+}
+</style>
