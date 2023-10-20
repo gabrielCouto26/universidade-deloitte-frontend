@@ -37,20 +37,22 @@ async function handleRegister() {
         {{ props.message || 'Erro inesperado' }}
     </v-alert>
 
-    <div class="mt-4">
-        <v-btn
-            color="#006600"
-            type="submit"
-            @click.prevent="handleRegister"
-        >
-            Cadastrar
-        </v-btn>
+    <slot name="buttons">
+        <div class="mt-4">
+            <v-btn
+                color="#006600"
+                type="submit"
+                @click.prevent="handleRegister"
+            >
+                Cadastrar
+            </v-btn>
 
-        <v-btn
-            @click="props.cancel"
-            class="ml-4"
-        >
-            Cancelar
-        </v-btn>
-    </div>
+            <v-btn
+                @click="props.cancel"
+                class="ml-4"
+            >
+                Cancelar
+            </v-btn>
+        </div>
+    </slot>
 </template>
