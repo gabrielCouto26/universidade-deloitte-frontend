@@ -18,7 +18,6 @@ const form = reactive({
 })
 
 const message = ref('')
-const loading = ref(false)
 
 const students = reactive([])
 const disciplineList = computed(() => {
@@ -54,11 +53,8 @@ watch(form, async () => {
 
 async function handleRegister() {
     message.value = ''
-    loading.value = true
 
     const [res, error] = await props.register(form)
-
-    loading.value = false
 
     if (error) {
         message.value = 'Erro ao cadastrar Nota'
@@ -94,7 +90,6 @@ function handleCancel() {
 
         <template #field-2>
             <v-select
-                #field2
                 v-model="form.student"
                 label="Aluno"
                 :items="students?.value"
@@ -105,7 +100,6 @@ function handleCancel() {
 
         <template #field-3>
             <v-text-field 
-                #field3
                 v-model.number="form.value"
                 label="Valor"
                 type="number"

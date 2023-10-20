@@ -18,7 +18,6 @@ const form = reactive({
 })
 
 const message = ref('')
-const loading = ref(false)
 
 const teacherList = computed(() => {
     return props.teachers.map(t => ({
@@ -49,11 +48,8 @@ const disabledStudent = computed(() => {
 
 async function handleRegister() {
     message.value = ''
-    loading.value = true
 
     const [res, error] = await props.register(form)
-
-    loading.value = false
 
     if (error) {
         message.value = 'Erro ao cadastrar Disciplina'

@@ -11,7 +11,6 @@ const props = defineProps({
 const router = useRouter()
 const title = ref('Inicio')
 const message = ref('')
-const loading = ref(false)
 const headers = ref([])
 const items = ref([])
 const canAdd = ref(false)
@@ -23,11 +22,8 @@ const isTeacher = ref(false)
 
 async function handleList() {
     message.value = ''
-    loading.value = true
 
     const [res, error] = await props.list()
-
-    loading.value = false
 
     if (error) {
         message.value = 'Falha ao carregar informações'
