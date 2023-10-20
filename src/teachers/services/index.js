@@ -9,6 +9,16 @@ async function getTeachers(){
     }
 }
 
+async function createTeacher(data){
+    try {
+        const res = await http.post('/api/teachers/', data)
+        return [res.data, null]
+    } catch (error) {
+        return [null, error]
+    }
+}
+
 export {
     getTeachers,
+    createTeacher
 }

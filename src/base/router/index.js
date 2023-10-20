@@ -5,6 +5,7 @@ import { HomeRoutes } from '@/home/routes'
 import { GradeRoutes } from '@/grades/routes'
 import { DisciplineRoutes } from '@/disciplines/routes'
 import { StudentRoutes } from '@/students/routes'
+import { TeacherRoutes } from '@/teachers/routes'
 
 const routes = [
   {
@@ -15,7 +16,8 @@ const routes = [
       ...HomeRoutes,
       ...GradeRoutes,
       ...DisciplineRoutes,
-      ...StudentRoutes
+      ...StudentRoutes,
+      ...TeacherRoutes,
     ],
   },
 ]
