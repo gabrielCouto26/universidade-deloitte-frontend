@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router';
 import { reactive } from 'vue';
+import BaseForm from '@/base/components/BaseForm.vue';
 
 const props = defineProps({
     register: Function,
@@ -10,7 +11,6 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const formValid = ref(false)
 const form = reactive({
     value: 0,
     student: null,
@@ -53,9 +53,6 @@ watch(form, async () => {
 })
 
 async function handleRegister() {
-    if (!formValid.value)
-        return
-
     message.value = ''
     loading.value = true
 
@@ -80,59 +77,42 @@ function handleCancel() {
 </script>
 
 <template>
-    <v-card class="mt-3 rounded-lg">
-        <v-form v-model="formValid" >
-            <v-card-item>
-                <v-select
-                    v-model="form.discipline"
-                    label="Disciplina"
-                    :items="disciplineList"
-                    variant="underlined"
-                />
-            </v-card-item>
+    <BaseForm
+        :numFields="Object.keys(form).length"
+        :message="message"
+        :register="handleRegister"
+        :cancel="handleCancel"
+    >
+        <template #field-1>
+            <v-select
+                v-model="form.discipline"
+                label="Disciplina"
+                :items="disciplineList"
+                variant="underlined"
+            />
+        </template>
 
-            <v-card-item>
-                <v-select
-                    v-model="form.student"
-                    label="Aluno"
-                    :items="students?.value"
-                    :disabled="disabledStudent"
-                    variant="underlined"
-                />
-            </v-card-item>
+        <template #field-2>
+            <v-select
+                #field2
+                v-model="form.student"
+                label="Aluno"
+                :items="students?.value"
+                :disabled="disabledStudent"
+                variant="underlined"
+            />
+        </template>
 
-            <v-card-item>
-                <v-text-field 
-                    v-model.number="form.value"
-                    label="Valor"
-                    type="number"
-                    min="0"
-                    :disabled="disabledGrade"
-                    variant="underlined"
-                />
-            </v-card-item>
-        </v-form>
-    </v-card>
-
-    <v-alert v-if="message" type="error" class="justify-center my-4">
-        {{ message || 'Erro inesperado' }}
-    </v-alert>
-
-    <div class="mt-4">
-        <v-btn
-            color="#006600"
-            :loading="loading"
-            type="submit"
-            @click.prevent="handleRegister"
-        >
-            Cadastrar
-        </v-btn>
-
-        <v-btn
-            @click="handleCancel"
-            class="ml-4"
-        >
-            Cancelar
-        </v-btn>
-    </div>
+        <template #field-3>
+            <v-text-field 
+                #field3
+                v-model.number="form.value"
+                label="Valor"
+                type="number"
+                min="0"
+                :disabled="disabledGrade"
+                variant="underlined"
+            />
+        </template>
+    </BaseForm>
 </template>

@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref, reactive, computed } from 'vue'
+import BaseForm from '@/base/components/BaseForm.vue';
 
 const props = defineProps({
     register: Function,
@@ -9,7 +10,6 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const formValid = ref(false)
 const form = reactive({
     name: '',
     workload: 0,
@@ -48,9 +48,6 @@ const disabledStudent = computed(() => {
 
 
 async function handleRegister() {
-    if (!formValid.value)
-        return
-
     message.value = ''
     loading.value = true
 
@@ -75,69 +72,50 @@ function handleCancel() {
 </script>
 
 <template>
-    <v-card class="mt-3 rounded-lg">
-        <v-form v-model="formValid">
-            <v-card-item>
-                <v-text-field
-                    v-model="form.name"
-                    label="Nome"
-                    variant="underlined"
-                />
-            </v-card-item>
+    <BaseForm
+        :numFields="Object.keys(form).length"
+        :message="message"
+        :register="handleRegister"
+        :cancel="handleCancel"
+    >
+        <template #field-1>
+            <v-text-field
+                v-model="form.name"
+                label="Nome"
+                variant="underlined"
+            />
+        </template>
 
-            <v-card-item>
-                <v-text-field
-                    v-model.number="form.workload"
-                    label="Carga horária"
-                    type="number"
-                    min="0"
-                    :disabled="disabledWorkload"
-                    variant="underlined"
-                />
-            </v-card-item>
+        <template #field-2>
+            <v-text-field
+                v-model.number="form.workload"
+                label="Carga horária"
+                type="number"
+                min="0"
+                :disabled="disabledWorkload"
+                variant="underlined"
+            />
+        </template>
 
-            <v-card-item>
-                <v-select
-                    v-model="form.teacher"
-                    label="Professor"
-                    :items="teacherList"
-                    :disabled="disabledTeacher"
-                    variant="underlined"
-                />
-            </v-card-item>
+        <template #field-3>
+            <v-select
+                v-model="form.teacher"
+                label="Professor"
+                :items="teacherList"
+                :disabled="disabledTeacher"
+                variant="underlined"
+            />
+        </template>
 
-            <v-card-item>
-                <v-select
-                    v-model="form.students"
-                    label="Alunos"
-                    :items="studentList"
-                    :disabled="disabledStudent"
-                    multiple
-                    variant="underlined"
-                />
-            </v-card-item>
-        </v-form>
-    </v-card>
-
-    <v-alert v-if="message" type="error" class="justify-center my-4">
-        {{ message || 'Erro inesperado' }}
-    </v-alert>
-
-    <div class="mt-4">
-        <v-btn
-            color="#006600"
-            :loading="loading"
-            type="submit"
-            @click.prevent="handleRegister"
-        >
-            Cadastrar
-        </v-btn>
-
-        <v-btn
-            @click="handleCancel"
-            class="ml-4"
-        >
-            Cancelar
-        </v-btn>
-    </div>
+        <template #field-4>
+            <v-select
+                v-model="form.students"
+                label="Alunos"
+                :items="studentList"
+                :disabled="disabledStudent"
+                multiple
+                variant="underlined"
+            />
+        </template>
+    </BaseForm>
 </template>
