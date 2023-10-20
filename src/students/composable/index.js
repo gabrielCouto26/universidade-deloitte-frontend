@@ -1,5 +1,6 @@
 import { ref } from 'vue'
-import { getStudents } from '@/students/services'
+import { getStudents, createStudent } from '@/students/services'
+import { STUDENT_USER_TYPE } from '@/base/enums'
 
 export const useStudents = () => {
     const students = ref([])
@@ -15,8 +16,19 @@ export const useStudents = () => {
         }
     }
 
+    async function addStudent(data) {
+        data.user_type = STUDENT_USER_TYPE
+        const [res, error] = await createStudent({ user: data })
+        if (error)
+            return [null, error]
+
+        if (res)
+            return [res, null]
+    }
+
     return {
         students,
         studentsList,
+        addStudent
     }
 }

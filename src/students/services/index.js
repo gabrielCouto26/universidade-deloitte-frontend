@@ -9,6 +9,16 @@ async function getStudents(){
     }
 }
 
+async function createStudent(data){
+    try {
+        const res = await http.post('/api/students/', data)
+        return [res.data, null]
+    } catch (error) {
+        return [null, error]
+    }
+}
+
 export {
     getStudents,
+    createStudent
 }
