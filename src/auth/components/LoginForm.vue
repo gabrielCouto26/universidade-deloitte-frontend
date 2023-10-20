@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router';
-
+import BaseForm from '@/base/components/BaseForm.vue';
 
 const props = defineProps({
     action: Function,
@@ -9,25 +9,17 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const formValid = ref(false)
 const form = reactive({
     email: '',
     password: ''
 })
 
 const message = ref('')
-const loading = ref(false)
 
 async function handleLogin() {
-    if (!formValid.value)
-        return
-
     message.value = ''
-    loading.value = true
 
     const [token, error] = await props.action(form.email, form.password)
-
-    loading.value = false
 
     if (error && error.response?.status === 400) {
         message.value = 'Email ou senha incorretos'
@@ -43,42 +35,39 @@ async function handleLogin() {
 </script>
 
 <template>
-    <v-card class="mt-3 rounded-lg">
-        <v-form
-            v-model="formValid"
-        >
-            <v-card-item>
-                <v-text-field
-                    v-model="form.email"
-                    label="Email"
-                    type="email"
-                    variant="underlined"
-                />
-            </v-card-item>
-
-            <v-card-item>
-                <v-text-field
-                    v-model="form.password"
-                    label="Senha"
-                    type="password"
-                    variant="underlined"
-                />
-            </v-card-item>
-        </v-form>
-    </v-card>
-
-    <v-alert v-if="message" type="error" class="justify-center my-4">
-        {{ message || 'Erro inesperado' }}
-    </v-alert>
-
-    <v-btn
-        block
-        color="#006600"
-        :loading="loading"
-        type="submit"
-        @click="handleLogin"
-        class="mt-4 py-6"
+    <BaseForm
+        :numFields="Object.keys(form).length"
+        :message="message"
+        :register="handleLogin"
     >
-        Entrar
-    </v-btn>
+        <template #field-1>
+            <v-text-field
+                v-model="form.email"
+                label="Email"
+                type="email"
+                variant="underlined"
+            />
+        </template>
+
+        <template #field-2>
+            <v-text-field
+                v-model="form.password"
+                label="Senha"
+                type="password"
+                variant="underlined"
+            />
+        </template>
+
+        <template #buttons>
+            <v-btn
+                block
+                color="#006600"
+                type="submit"
+                class="mt-4 py-6"
+                @click="handleLogin"
+            >
+                Entrar
+            </v-btn>
+        </template>
+    </BaseForm>
 </template>
