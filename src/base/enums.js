@@ -11,12 +11,12 @@ const NAV_BAR_ITEMS = [
     {
         name: 'Professores',
         permission_name: 'Teacher',
-        route: '/teacher/new'
+        route: '/teachers'
     },
     {
         name: 'Alunos',
         permission_name: 'Student',
-        route: '/student/new'
+        route: '/students'
     },
 ]
 
