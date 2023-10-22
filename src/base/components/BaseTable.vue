@@ -50,18 +50,24 @@ function unhighlightItem() {
 
         <tbody>
           <tr
-            v-for="(item, i) in props.items"
-            :key="i"
-            @mouseover="highlightItem(item)"
-            @mouseleave="unhighlightItem(item)"
-            :class="{ 'mouseover': item === currentItemWithMouse }"
-          >
-            <td
-              v-for="header in props.headers"
-              :key="header.value"
-              @click="getDetails(item.id)"
+              v-if="props.items?.length"
+              v-for="(item, i) in props.items"
+              :key="i"
+              @mouseover="highlightItem(item)"
+              @mouseleave="unhighlightItem(item)"
+              :class="{ 'mouseover': item === currentItemWithMouse }"
             >
-              {{ item[header.value] }}
+              <td
+                v-for="header in props.headers"
+                :key="header.value"
+                @click="getDetails(item.id)"
+              >
+                {{ item[header.value] }}
+              </td>
+            </tr>
+          <tr v-else>
+            <td>
+              Nenhum registro encontrado
             </td>
           </tr>
         </tbody>
