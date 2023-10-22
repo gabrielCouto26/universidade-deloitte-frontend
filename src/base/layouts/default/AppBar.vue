@@ -18,7 +18,8 @@ function handleLogout() {
 }
 
 function handleHome() {
-  router.push('/')
+  if(isLogedIn.value)
+    router.push('/')
 }
 
 function handleRedirect(route) {
