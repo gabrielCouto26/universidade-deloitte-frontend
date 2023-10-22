@@ -28,7 +28,7 @@ async function handleRegister() {
     }
 
     if (res){
-        router.push({ name: 'Home' })
+        router.push({ name: 'StudentList' })
     }
 }
 
