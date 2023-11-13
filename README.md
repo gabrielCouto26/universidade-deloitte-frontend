@@ -1,69 +1,18 @@
-# base
+# Front-End em Vue.js do desafio da Deloitte.
 
-## Project setup
+### Para instalar
+`npm install`
 
-```
-# yarn
-yarn
+### Para rodar
+`npm run dev`
 
-# npm
-npm install
+### Certifique de rodar o Back-End primeiro
+https://github.com/gabrielCouto26/universidade-deloitte
 
-# pnpm
-pnpm install
+## Algumas das Telas
 
-# pnpm
-bun install
-```
+### Login
+![login-deloitte](https://github.com/gabrielCouto26/universidade-deloitte-frontend/assets/42366970/f3ecd7b9-4a38-470e-a3a3-d9f4971147e7)
 
-### Compiles and hot-reloads for development
-
-```
-# yarn
-yarn dev
-
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# bun
-bun run dev
-```
-
-### Compiles and minifies for production
-
-```
-# yarn
-yarn build
-
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# bun
-bun run build
-```
-
-### Lints and fixes files
-
-```
-# yarn
-yarn lint
-
-# npm
-npm run lint
-
-# pnpm
-pnpm lint
-
-# bun
-bun run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://vitejs.dev/config/).
+### Home
+![home-deloitte](https://github.com/gabrielCouto26/universidade-deloitte-frontend/assets/42366970/80da8e3f-b452-4ded-86bb-4e2df8999981)
